@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { getProductInfo } from "../utils/api";
 import Tooltip from "../components/Tooltip";
 import Button from "../components/Button";
+import ProductItem from "../components/ProductItem";
 
 function ProductInfoPage() {
   const [mainImage, setMainImage] = useState("");
@@ -65,6 +66,15 @@ function ProductInfoPage() {
             )}
           </React.Fragment>
         ))}
+        <ProductList>
+          {productInfo.map((item) => (
+            <ProductItem
+              imageUrl={item.imageUrl}
+              isSelected={selectedProduct === item.productId ? true : false}
+              onClick={() => onClick(item.productId)}
+            ></ProductItem>
+          ))}
+        </ProductList>
       </Box>
     </>
   );
@@ -80,4 +90,8 @@ const PhotoInfoBox = styled.img`
 const Box = styled.div`
   width: 1000px;
   height: 1248px;
+`;
+
+const ProductList = styled.div`
+  display: flex;
 `;
