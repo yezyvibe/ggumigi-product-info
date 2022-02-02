@@ -27,7 +27,9 @@ function ProductInfoPage() {
     getData();
   }, []);
 
-  const onClick = (id) => setSelectedProduct(id);
+  const onClick = (id) => {
+    selectedProduct !== id ? setSelectedProduct(id) : setSelectedProduct("");
+  };
 
   useEffect(() => console.log(productInfo), [productInfo]);
 
@@ -56,6 +58,9 @@ function ProductInfoPage() {
                 productName={item.productName}
                 productPrice={item.priceOriginal}
                 isSelected={true}
+                outside={item.outside}
+                priceDiscount={item.priceDiscount}
+                discountRate={item.discountRate}
               />
             )}
           </React.Fragment>
@@ -69,7 +74,7 @@ export default ProductInfoPage;
 
 const PhotoInfoBox = styled.img`
   width: 800px;
-  height: 998px;
+  height: 598px;
 `;
 
 const Box = styled.div`

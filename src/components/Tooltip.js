@@ -1,6 +1,13 @@
 import styled from "styled-components";
 
-function Tooltip({ productName, productPrice, productImage }) {
+function Tooltip({
+  productName,
+  productPrice,
+  productImage,
+  outside,
+  priceDiscount,
+  discountRate,
+}) {
   return (
     <>
       <TooltipBox>
@@ -9,7 +16,15 @@ function Tooltip({ productName, productPrice, productImage }) {
         </TooltipImage>
         <ProductInfo>
           <ProductName>{productName}</ProductName>
-          <ProductPrice>{productPrice}</ProductPrice>
+
+          {!outside ? (
+            <>
+              <DiscountRate>{discountRate}%</DiscountRate>
+              <PriceDiscount>{priceDiscount}</PriceDiscount>
+            </>
+          ) : (
+            <ProductPrice>예상가 {productPrice}</ProductPrice>
+          )}
         </ProductInfo>
       </TooltipBox>
     </>
@@ -49,3 +64,7 @@ const ProductName = styled.div`
   }
 `;
 const ProductPrice = styled.div``;
+const PriceDiscount = styled.div``;
+const DiscountRate = styled.div`
+  color: red;
+`;
