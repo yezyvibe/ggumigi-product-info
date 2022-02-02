@@ -69,6 +69,7 @@ function ProductInfoPage() {
         <ProductList>
           {productInfo.map((item) => (
             <ProductItem
+              key={`product_list${item.productId}`}
               imageUrl={item.imageUrl}
               isSelected={selectedProduct === item.productId ? true : false}
               onClick={() => onClick(item.productId)}
