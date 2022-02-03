@@ -1,6 +1,13 @@
 import styled, { css } from "styled-components";
 import arrowIcon from "assets/arrowIcon.png";
 import triangle from "assets/triangle.png";
+import {
+  resizePointX,
+  resizePointY,
+  halfOfMainImageWidth,
+  halfOfMainImageHeight,
+} from "utils/constants";
+
 function Tooltip({
   productName,
   productPrice,
@@ -11,8 +18,10 @@ function Tooltip({
   pointX,
   pointY,
 }) {
-  const tooltipRight = 1.65 * pointY > 400 ? true : false;
-  const tooltipBottom = 1.6 * pointX > 499 ? true : false;
+  const tooltipRight =
+    resizePointY * pointY > halfOfMainImageWidth ? true : false;
+  const tooltipBottom =
+    resizePointX * pointX > halfOfMainImageHeight ? true : false;
   return (
     <TooltipBox
       pointX={pointX}
@@ -20,7 +29,6 @@ function Tooltip({
       triangle={triangle}
       tooltipRight={tooltipRight}
       tooltipBottom={tooltipBottom}
-      // tooltipMiddle={tooltipMiddle}
     >
       <TooltipImage>
         <ProductImage src={productImage}></ProductImage>
@@ -50,8 +58,8 @@ export default Tooltip;
 
 const TooltipBox = styled.div`
   position: absolute;
-  left: ${(props) => `${1.65 * props.pointY}px`};
-  top: ${(props) => `${1.6 * props.pointX}px`};
+  left: ${(props) => `${resizePointY * props.pointY}px`};
+  top: ${(props) => `${resizePointX * props.pointX}px`};
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -81,25 +89,25 @@ const TooltipBox = styled.div`
   ${(props) =>
     props.tooltipBottom
       ? css`
-          top: ${(props) => `${1.6 * props.pointX - 94}px`};
+          top: ${(props) => `${resizePointX * props.pointX - 94}px`};
           ::before {
             top: 86px;
             transform: rotate(180deg);
           }
         `
       : css`
-          top: ${(props) => `${1.6 * props.pointX + 40}px`};
+          top: ${(props) => `${resizePointX * props.pointX + 40}px`};
         `}
   ${(props) =>
     props.tooltipRight
       ? css`
-          left: ${(props) => `${1.65 * props.pointY - 222 + 32 * 2}px`};
+          left: ${(props) => `${resizePointY * props.pointY - 222 + 32 * 2}px`};
           ::before {
             left: 168px;
           }
         `
       : css`
-          left: ${(props) => `${1.65 * props.pointY - 32 + 8}px`};
+          left: ${(props) => `${resizePointY * props.pointY - 32 + 8}px`};
         `}
 `;
 const TooltipImage = styled.div``;

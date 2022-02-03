@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getProductInfo } from "utils/api";
-import Tooltip from "components/Tooltip";
-import Button from "components/Button";
-import ProductItem from "components/ProductItem";
 import NavBar from "components/NavBar";
 import ProductList from "components/ProductList";
+import FurnitureInfo from "components/FurnitureInfo";
 
 function ProductInfoPage() {
   const [mainImage, setMainImage] = useState("");
@@ -39,45 +37,27 @@ function ProductInfoPage() {
   return (
     <>
       <NavBar></NavBar>
-      <Box>
-        <PhotoInfoBox src={mainImage} alt="mainImage"></PhotoInfoBox>
-        {productInfo.map((item) => (
-          <ProductBox key={`tooltip_list_${item.productId}`}>
-            <Button
-              onClick={() => onClick(item.productId)}
-              pointX={item.pointX}
-              pointY={item.pointY}
-              isSelected={item.productId === selectedProduct ? true : false}
-            />
-            {item.productId === selectedProduct && (
-              <Tooltip
-                productImage={item.imageUrl}
-                productName={item.productName}
-                productPrice={item.priceOriginal}
-                isSelected={true}
-                outside={item.outside}
-                priceDiscount={item.priceDiscount}
-                discountRate={item.discountRate}
-                pointX={item.pointX}
-                pointY={item.pointY}
-              />
-            )}
-          </ProductBox>
-        ))}
+      <MainWrapper>
+        <MainImage src={mainImage} alt="mainImage"></MainImage>
+        <FurnitureInfo
+          productInfo={productInfo}
+          onClick={onClick}
+          selectedProduct={selectedProduct}
+        ></FurnitureInfo>
 
         <ProductList
           productInfo={productInfo}
           selectedProduct={selectedProduct}
           onClick={onClick}
         ></ProductList>
-      </Box>
+      </MainWrapper>
     </>
   );
 }
 
 export default ProductInfoPage;
 
-const Box = styled.div`
+const MainWrapper = styled.div`
   width: 800px;
   display: flex;
   flex-direction: column;
@@ -87,9 +67,7 @@ const Box = styled.div`
   position: relative;
 `;
 
-const PhotoInfoBox = styled.img`
+const MainImage = styled.img`
   width: 100%;
   height: 998px;
 `;
-
-const ProductBox = styled.div``;

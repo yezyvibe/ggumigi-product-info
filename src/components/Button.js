@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import searchIcon from "assets/searchIcon.png";
 import closeIcon from "assets/closeIcon.png";
+import { resizePointX, resizePointY } from "utils/constants";
 
 function Button({ pointX, pointY, isSelected, ...rest }) {
   return (
@@ -22,8 +23,8 @@ const StyledButton = styled.button`
   all: unset;
   border-radius: 50%;
   position: absolute;
-  left: ${(props) => `${1.65 * props.pointY}px`};
-  top: ${(props) => `${1.6 * props.pointX}px`};
+  left: ${(props) => `${resizePointY * props.pointY}px`};
+  top: ${(props) => `${resizePointX * props.pointX}px`};
   cursor: pointer;
 `;
 
