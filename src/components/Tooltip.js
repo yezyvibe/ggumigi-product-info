@@ -7,6 +7,7 @@ import {
   halfOfMainImageWidth,
   halfOfMainImageHeight,
 } from "utils/constants";
+import { addComma } from "utils/comma";
 
 function Tooltip({
   productName,
@@ -39,12 +40,12 @@ function Tooltip({
           {!outside ? (
             <>
               <DiscountRate>{discountRate}%</DiscountRate>
-              <PriceDiscount>{priceDiscount}</PriceDiscount>
+              <PriceDiscount>{addComma(priceDiscount)}</PriceDiscount>
             </>
           ) : (
             <>
               <BeforePrice>예상가</BeforePrice>
-              <ProductPrice>{productPrice}</ProductPrice>
+              <ProductPrice>{addComma(productPrice)}</ProductPrice>
             </>
           )}
           <ArrowBox src={arrowIcon} alt="상품 보기"></ArrowBox>
@@ -149,6 +150,7 @@ const BeforePrice = styled.div`
   font-weight: bold;
   margin-right: 4px;
   margin-top: 2px;
+  width: 35px;
 `;
 const PriceDiscount = styled.div`
   display: flex;
@@ -174,7 +176,7 @@ const ArrowBox = styled.img`
   align-items: flex-end;
   width: 20px;
   height: 20px;
-  margin-left: 30px;
+  margin-left: 24px;
 `;
 
 const ProductInfoBottom = styled.div`
