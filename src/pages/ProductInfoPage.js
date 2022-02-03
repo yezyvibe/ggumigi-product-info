@@ -4,6 +4,7 @@ import { getProductInfo } from "../utils/api";
 import Tooltip from "../components/Tooltip";
 import Button from "../components/Button";
 import ProductItem from "../components/ProductItem";
+import NavBar from "../components/NavBar";
 
 function ProductInfoPage() {
   const [mainImage, setMainImage] = useState("");
@@ -43,10 +44,11 @@ function ProductInfoPage() {
   // };
   return (
     <>
+      <NavBar></NavBar>
       <Box>
-        <PhotoInfoBox src={mainImage}></PhotoInfoBox>
+        <PhotoInfoBox src={mainImage} alt="mainImage"></PhotoInfoBox>
         {productInfo.map((item) => (
-          <React.Fragment key={`tooltip_list_${item.productId}`}>
+          <ProductBox key={`tooltip_list_${item.productId}`}>
             <Button
               onClick={() => onClick(item.productId)}
               pointX={item.pointX}
@@ -64,8 +66,9 @@ function ProductInfoPage() {
                 discountRate={item.discountRate}
               />
             )}
-          </React.Fragment>
+          </ProductBox>
         ))}
+
         <ProductList>
           {productInfo.map((item) => (
             <ProductItem
@@ -73,6 +76,7 @@ function ProductInfoPage() {
               imageUrl={item.imageUrl}
               isSelected={selectedProduct === item.productId ? true : false}
               onClick={() => onClick(item.productId)}
+              discountRate={item.discountRate}
             ></ProductItem>
           ))}
         </ProductList>
@@ -83,15 +87,25 @@ function ProductInfoPage() {
 
 export default ProductInfoPage;
 
-const PhotoInfoBox = styled.img`
+const Box = styled.div`
   width: 800px;
-  height: 598px;
+  /* height: 1248px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  position: relative;
 `;
 
-const Box = styled.div`
-  width: 1000px;
-  height: 1248px;
+const PhotoInfoBox = styled.img`
+  width: 100%;
+  height: 998px;
+  /* background: ${(props) => `url(${props.mainImage})`}; */
+  /* } */
 `;
+
+const ProductBox = styled.div``;
 
 const ProductList = styled.div`
   display: flex;
