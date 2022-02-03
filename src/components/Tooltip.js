@@ -11,10 +11,8 @@ function Tooltip({
   pointX,
   pointY,
 }) {
-  const tooltipRight = 1.65 * pointY > 400 ? true : false; // 오른쪽 위치
-  // const tooltipMiddle = // 가로축 기준 중간 위치
-  //   1.65 * pointY > 270 && 1.65 * pointY < 550 ? true : false;
-  const tooltipBottom = 1.6 * pointX > 499 ? true : false; // 아래쪽 위치
+  const tooltipRight = 1.65 * pointY > 400 ? true : false;
+  const tooltipBottom = 1.6 * pointX > 499 ? true : false;
   return (
     <TooltipBox
       pointX={pointX}

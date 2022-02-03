@@ -5,6 +5,7 @@ import Tooltip from "components/Tooltip";
 import Button from "components/Button";
 import ProductItem from "components/ProductItem";
 import NavBar from "components/NavBar";
+import ProductList from "components/ProductList";
 
 function ProductInfoPage() {
   const [mainImage, setMainImage] = useState("");
@@ -13,7 +14,7 @@ function ProductInfoPage() {
   const getData = async () => {
     try {
       const response = await getProductInfo();
-      const { id, imageUrl, productList } = response;
+      const { imageUrl, productList } = response;
       setMainImage(imageUrl);
       addShowState(productList);
     } catch (e) {
@@ -35,13 +36,6 @@ function ProductInfoPage() {
 
   useEffect(() => console.log(productInfo), [productInfo]);
 
-  // const onToggleChecked = (id) => {
-  //   setProductInfo((prev) =>
-  //     prev.map((item) =>
-  //       item.id === id ? { ...item, isChecked: !item.isChecked } : item
-  //     )
-  //   );
-  // };
   return (
     <>
       <NavBar></NavBar>
@@ -71,17 +65,11 @@ function ProductInfoPage() {
           </ProductBox>
         ))}
 
-        <ProductList>
-          {productInfo.map((item) => (
-            <ProductItem
-              key={`product_list${item.productId}`}
-              imageUrl={item.imageUrl}
-              isSelected={selectedProduct === item.productId ? true : false}
-              onClick={() => onClick(item.productId)}
-              discountRate={item.discountRate}
-            ></ProductItem>
-          ))}
-        </ProductList>
+        <ProductList
+          productInfo={productInfo}
+          selectedProduct={selectedProduct}
+          onClick={onClick}
+        ></ProductList>
       </Box>
     </>
   );
@@ -91,7 +79,6 @@ export default ProductInfoPage;
 
 const Box = styled.div`
   width: 800px;
-  /* height: 1248px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -106,8 +93,3 @@ const PhotoInfoBox = styled.img`
 `;
 
 const ProductBox = styled.div``;
-
-const ProductList = styled.div`
-  display: flex;
-  overflow-x: scroll;
-`;
