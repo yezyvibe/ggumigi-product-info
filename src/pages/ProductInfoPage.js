@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getProductInfo } from "../utils/api";
-import Tooltip from "../components/Tooltip";
-import Button from "../components/Button";
-import ProductItem from "../components/ProductItem";
-import NavBar from "../components/NavBar";
+import { getProductInfo } from "utils/api";
+import Tooltip from "components/Tooltip";
+import Button from "components/Button";
+import ProductItem from "components/ProductItem";
+import NavBar from "components/NavBar";
 
 function ProductInfoPage() {
   const [mainImage, setMainImage] = useState("");
@@ -64,6 +64,8 @@ function ProductInfoPage() {
                 outside={item.outside}
                 priceDiscount={item.priceDiscount}
                 discountRate={item.discountRate}
+                pointX={item.pointX}
+                pointY={item.pointY}
               />
             )}
           </ProductBox>
@@ -101,12 +103,11 @@ const Box = styled.div`
 const PhotoInfoBox = styled.img`
   width: 100%;
   height: 998px;
-  /* background: ${(props) => `url(${props.mainImage})`}; */
-  /* } */
 `;
 
 const ProductBox = styled.div``;
 
 const ProductList = styled.div`
   display: flex;
+  overflow-x: scroll;
 `;

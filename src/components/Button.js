@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import searchIcon from "../assets/searchIcon.png";
-import closeIcon from "../assets/closeIcon.png";
+import searchIcon from "assets/searchIcon.png";
+import closeIcon from "assets/closeIcon.png";
 
 function Button({ pointX, pointY, isSelected, ...rest }) {
   return (

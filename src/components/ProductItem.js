@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import badgeIcon from "../assets/badgeIcon.png";
+import badgeIcon from "assets/badgeIcon.png";
 
 function ProductItem({ imageUrl, isSelected, discountRate, ...rest }) {
   return (
