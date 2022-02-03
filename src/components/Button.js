@@ -5,15 +5,12 @@ import { resizePointX, resizePointY } from "utils/constants";
 
 function Button({ pointX, pointY, isSelected, ...rest }) {
   return (
-    <>
-      <StyledButton {...rest} pointX={pointX} pointY={pointY}>
-        {isSelected ? (
-          <ButtonImage src={closeIcon} alt="closeIcon"></ButtonImage>
-        ) : (
-          <ButtonImage src={searchIcon} alt="searchIcon"></ButtonImage>
-        )}
-      </StyledButton>
-    </>
+    <StyledButton {...rest} pointX={pointX} pointY={pointY}>
+      <ButtonImage
+        src={isSelected ? closeIcon : searchIcon}
+        alt="closeIcon"
+      ></ButtonImage>
+    </StyledButton>
   );
 }
 
@@ -30,4 +27,5 @@ const StyledButton = styled.button`
 
 const ButtonImage = styled.img`
   width: 32px;
+  -webkit-user-drag: none;
 `;

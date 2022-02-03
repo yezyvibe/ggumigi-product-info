@@ -17,7 +17,7 @@ function FurnitureInfo({ productInfo, onClick, selectedProduct }) {
             <Tooltip
               productImage={item.imageUrl}
               productName={item.productName}
-              productPrice={item.priceOriginal}
+              priceOriginal={item.priceOriginal}
               isSelected={true}
               outside={item.outside}
               priceDiscount={item.priceDiscount}

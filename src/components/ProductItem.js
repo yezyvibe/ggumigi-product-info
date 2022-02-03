@@ -3,20 +3,20 @@ import badgeIcon from "assets/badgeIcon.png";
 
 function ProductItem({ imageUrl, isSelected, discountRate, ...rest }) {
   return (
-    <ItemWrapper isSelected={isSelected}>
+    <ProductItemOutline isSelected={isSelected}>
       <ProductBox {...rest}>
         <ProductImage src={imageUrl} />
         {discountRate !== 0 && (
           <DiscountRate badgeIcon={badgeIcon}>{discountRate}%</DiscountRate>
         )}
       </ProductBox>
-    </ItemWrapper>
+    </ProductItemOutline>
   );
 }
 
 export default ProductItem;
 
-const ItemWrapper = styled.div`
+const ProductItemOutline = styled.div`
   margin: 26px 4px;
   border-radius: 18px;
   background: ${(props) =>
@@ -40,6 +40,7 @@ const ProductImage = styled.img`
   height: 105px;
   border-radius: 18px;
   border: 0.5px solid #aaafb9;
+  -webkit-user-drag: none;
 `;
 const DiscountRate = styled.div`
   position: absolute;

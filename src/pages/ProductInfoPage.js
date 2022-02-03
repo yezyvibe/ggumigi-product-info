@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getProductInfo } from "utils/api";
-import NavBar from "components/NavBar";
 import ProductList from "components/ProductList";
 import FurnitureInfo from "components/FurnitureInfo";
 
@@ -14,14 +13,10 @@ function ProductInfoPage() {
       const response = await getProductInfo();
       const { imageUrl, productList } = response;
       setMainImage(imageUrl);
-      addShowState(productList);
+      setProductInfo(productList);
     } catch (e) {
       console.error(e);
     }
-  };
-
-  const addShowState = (productList) => {
-    setProductInfo(productList.map((item) => ({ ...item, isChecked: true })));
   };
 
   useEffect(() => {
@@ -32,26 +27,21 @@ function ProductInfoPage() {
     selectedProduct !== id ? setSelectedProduct(id) : setSelectedProduct("");
   };
 
-  useEffect(() => console.log(productInfo), [productInfo]);
-
   return (
-    <>
-      <NavBar></NavBar>
-      <MainWrapper>
-        <MainImage src={mainImage} alt="mainImage"></MainImage>
-        <FurnitureInfo
-          productInfo={productInfo}
-          onClick={onClick}
-          selectedProduct={selectedProduct}
-        ></FurnitureInfo>
+    <MainWrapper>
+      <MainImage src={mainImage} alt="mainImage"></MainImage>
+      <FurnitureInfo
+        productInfo={productInfo}
+        onClick={onClick}
+        selectedProduct={selectedProduct}
+      ></FurnitureInfo>
 
-        <ProductList
-          productInfo={productInfo}
-          selectedProduct={selectedProduct}
-          onClick={onClick}
-        ></ProductList>
-      </MainWrapper>
-    </>
+      <ProductList
+        productInfo={productInfo}
+        selectedProduct={selectedProduct}
+        onClick={onClick}
+      ></ProductList>
+    </MainWrapper>
   );
 }
 
@@ -64,10 +54,12 @@ const MainWrapper = styled.div`
   align-items: center;
   justify-content: center;
   margin: auto;
+  margin-top: 50px;
   position: relative;
 `;
 
 const MainImage = styled.img`
   width: 100%;
   height: 998px;
+  -webkit-user-drag: none;
 `;

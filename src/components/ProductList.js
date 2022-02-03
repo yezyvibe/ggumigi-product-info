@@ -21,5 +21,6 @@ export default ProductList;
 
 const WrapperProductList = styled.div`
   display: flex;
+  width: 805px;
   overflow-x: scroll;
 `;

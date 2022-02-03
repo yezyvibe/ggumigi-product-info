@@ -1,17 +1,17 @@
 import styled, { css } from "styled-components";
 import arrowIcon from "assets/arrowIcon.png";
 import triangle from "assets/triangle.png";
+import { addComma } from "utils/comma";
 import {
   resizePointX,
   resizePointY,
   halfOfMainImageWidth,
   halfOfMainImageHeight,
 } from "utils/constants";
-import { addComma } from "utils/comma";
 
 function Tooltip({
   productName,
-  productPrice,
+  priceOriginal,
   productImage,
   outside,
   priceDiscount,
@@ -23,20 +23,19 @@ function Tooltip({
     resizePointY * pointY > halfOfMainImageWidth ? true : false;
   const tooltipBottom =
     resizePointX * pointX > halfOfMainImageHeight ? true : false;
+
   return (
-    <TooltipBox
+    <TooltipWrapper
       pointX={pointX}
       pointY={pointY}
       triangle={triangle}
       tooltipRight={tooltipRight}
       tooltipBottom={tooltipBottom}
     >
-      <TooltipImage>
-        <ProductImage src={productImage}></ProductImage>
-      </TooltipImage>
+      <ProductImage src={productImage}></ProductImage>
       <ProductInfo>
         <ProductName>{productName}</ProductName>
-        <ProductInfoBottom>
+        <ProductPrice>
           {!outside ? (
             <>
               <DiscountRate>{discountRate}%</DiscountRate>
@@ -45,19 +44,19 @@ function Tooltip({
           ) : (
             <>
               <BeforePrice>예상가</BeforePrice>
-              <ProductPrice>{addComma(productPrice)}</ProductPrice>
+              <PriceOriginal>{addComma(priceOriginal)}</PriceOriginal>
             </>
           )}
           <ArrowBox src={arrowIcon} alt="상품 보기"></ArrowBox>
-        </ProductInfoBottom>
+        </ProductPrice>
       </ProductInfo>
-    </TooltipBox>
+    </TooltipWrapper>
   );
 }
 
 export default Tooltip;
 
-const TooltipBox = styled.div`
+const TooltipWrapper = styled.div`
   position: absolute;
   left: ${(props) => `${resizePointY * props.pointY}px`};
   top: ${(props) => `${resizePointX * props.pointX}px`};
@@ -65,7 +64,7 @@ const TooltipBox = styled.div`
   display: flex;
   align-items: center;
   background-color: rgba(255, 255, 255, 0.95);
-  width: 214px;
+  width: 212px;
   height: 70px;
   padding: 8px 0 8px 8px;
   border-radius: 7px;
@@ -111,17 +110,16 @@ const TooltipBox = styled.div`
           left: ${(props) => `${resizePointY * props.pointY - 32 + 8}px`};
         `}
 `;
-const TooltipImage = styled.div``;
 
 const ProductImage = styled.img`
   flex-shrink: 0;
   width: 70px;
   height: 70px;
   margin-right: 8px;
-  margin-top: 2px;
   background-size: cover;
   background-position: center;
   border-radius: 4px;
+  -webkit-user-drag: none;
 `;
 const ProductInfo = styled.div`
   display: flex;
@@ -134,7 +132,7 @@ const ProductName = styled.div`
   font-size: 13px;
   height: 40px;
 `;
-const ProductPrice = styled.div`
+const PriceOriginal = styled.div`
   display: flex;
   align-items: center;
   color: #181d1f;
@@ -179,7 +177,7 @@ const ArrowBox = styled.img`
   margin-left: 24px;
 `;
 
-const ProductInfoBottom = styled.div`
+const ProductPrice = styled.div`
   display: flex;
   align-items: center;
 `;
