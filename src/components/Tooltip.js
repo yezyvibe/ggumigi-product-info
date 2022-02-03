@@ -12,9 +12,9 @@ function Tooltip({
   pointY,
 }) {
   const tooltipRight = 1.65 * pointY > 400 ? true : false; // 오른쪽 위치
-  const tooltipMiddle = // 가로축 기준 중간 위치
-    1.65 * pointY > 270 && 1.65 * pointY < 550 ? true : false;
-  const tooltipBottom = 1.6 * pointX > 600 ? true : false; // 아래쪽 위치
+  // const tooltipMiddle = // 가로축 기준 중간 위치
+  //   1.65 * pointY > 270 && 1.65 * pointY < 550 ? true : false;
+  const tooltipBottom = 1.6 * pointX > 499 ? true : false; // 아래쪽 위치
   return (
     <TooltipBox
       pointX={pointX}
@@ -22,7 +22,7 @@ function Tooltip({
       triangle={triangle}
       tooltipRight={tooltipRight}
       tooltipBottom={tooltipBottom}
-      tooltipMiddle={tooltipMiddle}
+      // tooltipMiddle={tooltipMiddle}
     >
       <TooltipImage>
         <ProductImage src={productImage}></ProductImage>
@@ -52,9 +52,8 @@ export default Tooltip;
 
 const TooltipBox = styled.div`
   position: absolute;
-  left: ${(props) => `${1.5 * props.pointY}px`};
+  left: ${(props) => `${1.65 * props.pointY}px`};
   top: ${(props) => `${1.6 * props.pointX}px`};
-  margin-top: 40px;
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -80,72 +79,29 @@ const TooltipBox = styled.div`
     background-repeat: no-repeat;
     z-index: 1100;
   }
-  ${(props) =>
-    props.tooltipRight && props.tooltipMiddle
-      ? css`
-          left: ${(props) => `${1.05 * props.pointY}px`};
-          top: ${(props) => `${1.6 * props.pointX}px`};
-          margin-top: 40px;
-          ::before {
-            top: -8px;
-            left: 175px;
-          }
-        `
-      : props.tooltipRight &&
-        css`
-          left: ${(props) => `${1.25 * props.pointY}px`};
-          top: ${(props) => `${1.6 * props.pointX}px`};
-          margin-top: 40px;
-          ::before {
-            top: -8px;
-            left: 185px;
-          }
-        `}
 
   ${(props) =>
-    !props.tooltipRight && props.tooltipMiddle
+    props.tooltipBottom
       ? css`
-          left: ${(props) => `${1.6 * props.pointY}px`};
-          top: ${(props) => `${1.6 * props.pointX}px`};
-          margin-top: 40px;
+          top: ${(props) => `${1.6 * props.pointX - 94}px`};
           ::before {
-            top: -8px;
-            left: 20px;
-          }
-        `
-      : !props.tooltipRight &&
-        css`
-          left: ${(props) => `${1.65 * props.pointY}px`};
-          top: ${(props) => `${1.6 * props.pointX}px`};
-          margin-top: 40px;
-          ::before {
-            top: -8px;
-            left: 10px;
-          }
-        `}
-
-  ${(props) =>
-    props.tooltipBottom && !props.tooltipRight
-      ? css`
-          left: ${(props) => `${0.8 * props.pointY}px`};
-          top: ${(props) => `${1.3 * props.pointX}px`};
-          margin-top: 40px;
-          ::before {
-            top: 85px;
-            left: 175px;
+            top: 86px;
             transform: rotate(180deg);
           }
         `
-      : props.tooltipBottom &&
-        css`
-          left: ${(props) => `${1.05 * props.pointY}px`};
-          top: ${(props) => `${1.2 * props.pointX}px`};
-          margin-top: 40px;
+      : css`
+          top: ${(props) => `${1.6 * props.pointX + 40}px`};
+        `}
+  ${(props) =>
+    props.tooltipRight
+      ? css`
+          left: ${(props) => `${1.65 * props.pointY - 222 + 32 * 2}px`};
           ::before {
-            top: 85px;
-            left: 175px;
-            transform: rotate(180deg);
+            left: 168px;
           }
+        `
+      : css`
+          left: ${(props) => `${1.65 * props.pointY - 32 + 8}px`};
         `}
 `;
 const TooltipImage = styled.div``;
