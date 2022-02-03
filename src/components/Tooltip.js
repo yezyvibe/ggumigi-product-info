@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import arrowIcon from "assets/arrowIcon.png";
 import triangle from "assets/triangle.png";
 function Tooltip({
@@ -11,8 +11,19 @@ function Tooltip({
   pointX,
   pointY,
 }) {
+  const tooltipRight = 1.65 * pointY > 400 ? true : false; // 오른쪽 위치
+  const tooltipMiddle = // 가로축 기준 중간 위치
+    1.65 * pointY > 270 && 1.65 * pointY < 550 ? true : false;
+  const tooltipBottom = 1.6 * pointX > 600 ? true : false; // 아래쪽 위치
   return (
-    <TooltipBox pointX={pointX} pointY={pointY} triangle={triangle}>
+    <TooltipBox
+      pointX={pointX}
+      pointY={pointY}
+      triangle={triangle}
+      tooltipRight={tooltipRight}
+      tooltipBottom={tooltipBottom}
+      tooltipMiddle={tooltipMiddle}
+    >
       <TooltipImage>
         <ProductImage src={productImage}></ProductImage>
       </TooltipImage>
@@ -41,9 +52,9 @@ export default Tooltip;
 
 const TooltipBox = styled.div`
   position: absolute;
-  left: ${(props) => `${1.65 * props.pointY}px`};
+  left: ${(props) => `${1.5 * props.pointY}px`};
   top: ${(props) => `${1.6 * props.pointX}px`};
-  margin-top: 50px;
+  margin-top: 40px;
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -52,7 +63,6 @@ const TooltipBox = styled.div`
   height: 70px;
   padding: 8px 0 8px 8px;
   border-radius: 7px;
-  /* -webkit-box-shadow: 3px 3px 8px 0 rgb(0 0 0 / 20%); */
   box-shadow: 3px 3px 8px 0 rgb(0 0 0 / 20%);
   font-size: 14px;
   color: #4a4a4a;
@@ -70,6 +80,73 @@ const TooltipBox = styled.div`
     background-repeat: no-repeat;
     z-index: 1100;
   }
+  ${(props) =>
+    props.tooltipRight && props.tooltipMiddle
+      ? css`
+          left: ${(props) => `${1.05 * props.pointY}px`};
+          top: ${(props) => `${1.6 * props.pointX}px`};
+          margin-top: 40px;
+          ::before {
+            top: -8px;
+            left: 175px;
+          }
+        `
+      : props.tooltipRight &&
+        css`
+          left: ${(props) => `${1.25 * props.pointY}px`};
+          top: ${(props) => `${1.6 * props.pointX}px`};
+          margin-top: 40px;
+          ::before {
+            top: -8px;
+            left: 185px;
+          }
+        `}
+
+  ${(props) =>
+    !props.tooltipRight && props.tooltipMiddle
+      ? css`
+          left: ${(props) => `${1.6 * props.pointY}px`};
+          top: ${(props) => `${1.6 * props.pointX}px`};
+          margin-top: 40px;
+          ::before {
+            top: -8px;
+            left: 20px;
+          }
+        `
+      : !props.tooltipRight &&
+        css`
+          left: ${(props) => `${1.65 * props.pointY}px`};
+          top: ${(props) => `${1.6 * props.pointX}px`};
+          margin-top: 40px;
+          ::before {
+            top: -8px;
+            left: 10px;
+          }
+        `}
+
+  ${(props) =>
+    props.tooltipBottom && !props.tooltipRight
+      ? css`
+          left: ${(props) => `${0.8 * props.pointY}px`};
+          top: ${(props) => `${1.3 * props.pointX}px`};
+          margin-top: 40px;
+          ::before {
+            top: 85px;
+            left: 175px;
+            transform: rotate(180deg);
+          }
+        `
+      : props.tooltipBottom &&
+        css`
+          left: ${(props) => `${1.05 * props.pointY}px`};
+          top: ${(props) => `${1.2 * props.pointX}px`};
+          margin-top: 40px;
+          ::before {
+            top: 85px;
+            left: 175px;
+            transform: rotate(180deg);
+          }
+        `}
 `;
 const TooltipImage = styled.div``;
 
