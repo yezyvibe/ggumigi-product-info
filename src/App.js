@@ -1,5 +1,11 @@
+import ProductInfoPage from "./pages/ProductInfoPage";
+
 function App() {
-  return <div>첫 화면</div>;
+  return (
+    <>
+      <ProductInfoPage />
+    </>
+  );
 }
 
 export default App;
